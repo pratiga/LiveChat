@@ -19,6 +19,8 @@ function Chat({ socket, username, room }) {
             };
             
             await socket.emit("send_message", messageData);
+            setMessageList((list) => [...list, messageData]);
+            
         }
     }
     useEffect(() => {
@@ -34,14 +36,15 @@ function Chat({ socket, username, room }) {
         <div className='chat-body'>
             {messageList.map((messageContent) => {
                 return(
-                    <div className='message'>
+                    <div className='message' id={username === messageContent.author ? "you" : "other"} >
                         <div>
                             <div classname="message-content">
+                     
                             <p>{messageContent.message}</p>
                             </div>
                             <div classname="message-meta">
                             <p> {messageContent.time}</p>
-                            <p> {messageContent.time}</p>
+                            <p> {messageContent.author}</p>
                             </div>
                         </div>
                     </div>
